@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An original fictional design studio reference for the Sightcraft demo.">
+  <title>FORM / FIELD — Original Sightcraft reference</title>
+  <style>
+    :root { --paper:#f2f0e8; --ink:#20251f; --muted:#555e51; --line:#b7beb0; --lime:#d9f28b; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,Helvetica,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    a:focus-visible, summary:focus-visible { outline:3px solid #455d17; outline-offset:5px; }
+    .skip { position:absolute; left:24px; top:-90px; z-index:2; padding:16px; background:var(--lime); }
+    .skip:focus { top:12px; }
+    .shell { width:min(1296px,calc(100% - 112px)); margin:auto; }
+    header { min-height:106px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid var(--line); }
+    .brand { font-size:22px; font-weight:800; letter-spacing:-1.1px; }
+    nav { display:flex; align-items:center; gap:32px; font-size:14px; }
+    nav a { min-height:44px; display:inline-flex; align-items:center; }
+    .nav-contact { border:1px solid var(--ink); border-radius:99px; padding:0 22px; }
+    .hero { display:grid; grid-template-columns:1.28fr 1fr; gap:64px; padding:64px 0 56px; align-items:center; }
+    .eyebrow { display:flex; align-items:center; gap:10px; font:12px/1.5 'Courier New',monospace; letter-spacing:1px; text-transform:uppercase; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#485d25; flex:none; }
+    h1 { font-size:clamp(62px,8.2vw,118px); letter-spacing:-.075em; line-height:.98; font-weight:500; margin:30px 0; }
+    h1 em { font-family:Georgia,serif; font-weight:400; letter-spacing:-.07em; }
+    .intro { max-width:355px; color:var(--muted); font-size:16px; line-height:1.7; }
+    .button { display:inline-flex; min-height:50px; align-items:center; justify-content:space-between; gap:38px; padding:0 25px; border-radius:99px; background:var(--ink); color:var(--paper); font-size:14px; margin-top:16px; }
+    .button:focus-visible { outline-color:#455d17; }
+    .poster { position:relative; background:#ded3bd; padding:25px; aspect-ratio: .92; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; }
+    .poster-top { display:flex; justify-content:space-between; font:11px/1.5 'Courier New',monospace; }
+    .art { display:flex; align-items:center; justify-content:center; gap:11px; height:66%; }
+    .bar { background:var(--ink); width:29%; height:95%; }
+    .bar:nth-child(2) { height:65%; border-radius:100% 100% 0 0; background:#687453; }
+    .bar:nth-child(3) { height:95%; clip-path:polygon(0 0,100% 0,100% 48%,0 100%); }
+    .poster-bottom { border-top:1px solid #8e947d; padding-top:13px; display:flex; justify-content:space-between; font:11px/1.5 'Courier New',monospace; }
+    .badge { position:absolute; top:61px; right:18px; background:var(--lime); border:1px solid var(--ink); border-radius:50%; width:76px; height:76px; display:grid; place-content:center; text-align:center; font:11px/1.4 'Courier New',monospace; transform:rotate(12deg); }
+    .strip { display:flex; gap:24px; justify-content:space-between; border-block:1px solid var(--line); padding:21px 0; font:11px/1.6 'Courier New',monospace; text-transform:uppercase; letter-spacing:.8px; }
+    .section-title { display:flex; justify-content:space-between; align-items:baseline; gap:20px; padding:38px 0 23px; }
+    h2 { font-weight:500; font-size:36px; letter-spacing:-1.5px; margin:0; }
+    .count { font:12px 'Courier New',monospace; }
+    .projects { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .project-art { height:260px; padding:30px; display:flex; justify-content:space-between; align-items:flex-end; }
+    .project-art.one { background:#d9f28b; }
+    .project-art.two { background:#c6d7d4; }
+    .project-art strong { font-size:64px; font-weight:500; line-height:.9; letter-spacing:-5px; }
+    .project-art span { font:12px/1.6 'Courier New',monospace; }
+    .project-info { display:flex; justify-content:space-between; gap:18px; margin:14px 0 32px; }
+    .project-info h3 { font-size:16px; margin:0 0 6px; font-weight:500; }
+    .project-info p { font-size:12px; color:var(--muted); margin:0; }
+    .about { display:grid; grid-template-columns:1fr 1.4fr; border-top:1px solid var(--line); gap:60px; padding:38px 0; }
+    .about p { font-size:21px; line-height:1.6; margin:0 0 24px; }
+    details { border-top:1px solid var(--line); padding:14px 0; }
+    summary { cursor:pointer; min-height:44px; align-content:center; font-size:15px; }
+    details p { font-size:15px!important; margin-top:12px!important; }
+    footer { display:flex; justify-content:space-between; gap:24px; border-top:1px solid var(--line); padding:28px 0 40px; font-size:12px; color:var(--muted); }
+    @media (max-width:700px) {
+      .shell { width:calc(100% - 40px); } header { min-height:84px; gap:12px; flex-wrap:wrap; padding:16px 0; }
+      .brand { font-size:20px; } nav { gap:14px; font-size:12px; } .nav-contact { padding:0 14px; }
+      .hero { grid-template-columns:1fr; gap:32px; padding:34px 0; } h1 { font-size:clamp(57px,15vw,90px); margin:24px 0; }
+      .intro { font-size:15px; } .poster { aspect-ratio:1.08; } .strip { flex-wrap:wrap; gap:12px 22px; }
+      h2 { font-size:30px; } .projects { grid-template-columns:1fr; gap:0; } .project-art { height:230px; }
+      .about { grid-template-columns:1fr; gap:20px; } .about p { font-size:19px; } footer { flex-wrap:wrap; }
+    }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <header>
+      <a class="brand" href="#main" aria-label="Form Field home">FORM / FIELD<span aria-hidden="true">®</span></a>
+      <nav aria-label="Main"><a href="#work">Work</a><a href="#about">Studio</a><a class="nav-contact" href="#contact">Let's talk ↗</a></nav>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="headline">
+        <div>
+          <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Independent design practice</div>
+          <h1 id="headline">Good form.<br><em>Great feeling.</em></h1>
+          <p class="intro">We turn thoughtful ideas into identities, websites, and things worth keeping.</p>
+          <a class="button" href="#work">Explore our work <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="poster" role="img" aria-label="Original typographic poster: three architectural shapes in olive, on warm sand paper">
+          <div class="poster-top"><span>F/F — STUDY NO. 01</span><span>FORM IN MOTION</span></div>
+          <div class="badge" aria-hidden="true">Made to<br>mean more.</div>
+          <div class="art" aria-hidden="true"><i class="bar"></i><i class="bar"></i><i class="bar"></i></div>
+          <div class="poster-bottom"><span>A LITTLE STRUCTURE.<br>A LOT OF POSSIBILITY.</span><span>© F/F<br>2026</span></div>
+        </div>
+      </section>
+      <div class="strip" aria-label="Practice areas"><span>Strategy & direction</span><span>Brand identities</span><span>Digital experiences</span><span>Small studio. Wide world. ↗</span></div>
+      <section id="work" aria-labelledby="work-title">
+        <div class="section-title"><h2 id="work-title">Selected work</h2><span class="count">01 — 02 / CONCEPTS</span></div>
+        <div class="projects">
+          <article><div class="project-art one" role="img" aria-label="Fictional brand concept Common Ground, lime typography"><strong>common<br>ground.</strong><span>GOOD COFFEE.<br>OPEN MINDS.</span></div><div class="project-info"><div><h3>Common Ground</h3><p>Brand strategy · Identity</p></div><span aria-hidden="true">↗</span></div></article>
+          <article><div class="project-art two" role="img" aria-label="Fictional editorial concept Slow Days, blue typography"><strong>slow<br>days /</strong><span>LESS NOISE.<br>MORE LIFE.</span></div><div class="project-info"><div><h3>Slow Days</h3><p>Editorial · Digital direction</p></div><span aria-hidden="true">↗</span></div></article>
+        </div>
+      </section>
+      <section id="about" class="about" aria-labelledby="about-title">
+        <h2 id="about-title">A little about us.</h2>
+        <div><p>Thoughtful by nature.<br>Playful by design. We make room for both.</p><details><summary>What does the studio do?</summary><p>This fictional studio develops brand identities and simple websites. The projects above are original concepts for this demo.</p></details><details><summary>How can we start a project?</summary><p>This is an offline reference, with no contact service connected. Use the contact section to see the page's intended next step.</p></details></div>
+      </section>
+    </main>
+    <footer id="contact"><span>FORM / FIELD — Original fictional reference.</span><span>Sightcraft example · MIT · No contact service connected.</span></footer>
+  </div>
+</body>
+</html>
