@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 420" role="img" aria-labelledby="title desc">
+<title id="title">Sightcraft — Turn inspiration into a buildable blueprint.</title><desc id="desc">A screenshot becomes a design brief, a build prompt, and a website. Original Sightcraft banner.</desc>
+<rect width="1400" height="420" rx="16" fill="#20291f"/>
+<g fill="none" stroke="#69785d" stroke-width="1"><path d="M60 78h1280M60 342h1280M950 78v264"/></g>
+<text x="60" y="52" fill="#d8f18b" font-family="Arial,sans-serif" font-size="14" letter-spacing="3">SEE THE STYLE. CRAFT YOUR OWN.</text>
+<text x="54" y="239" fill="#f1f0e7" font-family="Arial,sans-serif" font-size="138" font-weight="700" letter-spacing="-8">Sightcraft</text>
+<text x="61" y="294" fill="#c0cab5" font-family="Arial,sans-serif" font-size="22">Turn inspiration into a buildable blueprint.</text>
+<g stroke="#d8f18b" fill="none" stroke-width="3"><rect x="1000" y="130" width="110" height="130" rx="4"/><path d="M1015 149h80M1015 163h80M1015 220h32M1015 234h60"/><rect x="1125" y="167" width="150" height="130" rx="4" fill="#20291f"/><path d="M1140 187h120M1140 217h50v60h-50zM1205 217h55M1205 234h55M1205 251h40"/></g>
+<g fill="#d8f18b" font-family="monospace" font-size="15"><text x="60" y="383">SCREENSHOT → DESIGN.md → BUILD-PROMPT.md → YOUR WEBSITE</text><text x="1205" y="383">MIT / V1</text></g>
+</svg>
