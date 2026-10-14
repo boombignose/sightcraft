@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "file": "examples/studio/reference.html",
+      "viewport": "1440x1000",
+      "artifact": "examples/studio/images/reference-desktop.png",
+      "metrics": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1425,
+        "body": 1425
+      }
+    },
+    {
+      "file": "examples/studio/reference.html",
+      "viewport": "1440x540",
+      "artifact": "examples/studio/images/reference-cropped.png",
+      "metrics": {
+        "width": 1440,
+        "height": 540,
+        "scroll": 1425,
+        "body": 1425
+      }
+    },
+    {
+      "file": "examples/studio/reference.html",
+      "viewport": "390x844",
+      "artifact": "examples/studio/images/reference-mobile.png",
+      "metrics": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390,
+        "body": 390
+      }
+    }
+  ],
+  "externalRequests": [],
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/155.0.8059.41",
+    "revision": "@96e02f81f8f3430db10a322d20b2b13e8a3288e9",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "jsVersion": "15.5.35.20"
+  }
+}
