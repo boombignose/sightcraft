@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-14",
+  "records": [
+    {
+      "test": "real pointer add two phones and buds, quantity +/-, reload, download file, keyboard modal, remove and clear",
+      "total": 63700,
+      "download": "sample-summary.txt",
+      "status": "pass"
+    },
+    {
+      "viewport": "1440x1000",
+      "noOverflow": true
+    },
+    {
+      "viewport": "390x844",
+      "noOverflow": true
+    },
+    {
+      "viewport": "320x740",
+      "noOverflow": true
+    },
+    {
+      "viewport": "767x900",
+      "noOverflow": true
+    },
+    {
+      "viewport": "768x900",
+      "noOverflow": true
+    },
+    {
+      "test": "normal/reduced motion and 200% text",
+      "normal": {
+        "name": "arrive",
+        "duration": "0.42s",
+        "hoverTransform": "matrix(1, 0, 0, 1, 0, -4)"
+      },
+      "panel": "panel-in",
+      "reduced": {
+        "name": "none",
+        "transition": "0s"
+      },
+      "status": "pass"
+    },
+    {
+      "test": "corrupt saved cart recovery and quantity cap",
+      "status": "pass"
+    },
+    {
+      "test": "storage denied: in-session add/cart still works with visible message",
+      "status": "pass"
+    },
+    {
+      "test": "file:// smoke: local scripts and cart work",
+      "status": "pass"
+    }
+  ],
+  "externalRequests": [],
+  "runtimeExceptions": []
+}
