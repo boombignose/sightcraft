@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Orbit Store ร้านจำลองสำหรับเลือกดูหมวดและรายละเอียดอุปกรณ์ตัวอย่าง">
+  <title>Orbit Store — ร้านของเรา</title>
+  <style>
+    :root { color-scheme: light; --page: #f5f5f7; --ink: #1d1d1f; --muted: #737378; --blue: #0066cc; --gutter: max(22px, calc((100% - 1160px) / 2)); }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.6 Tahoma, Arial, sans-serif; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { font: inherit; cursor: pointer; }
+    a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .container { max-width: 1204px; margin-inline: auto; padding-inline: 22px; }
+    .symbols { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .skip { position: absolute; left: 22px; top: -80px; z-index: 10; background: white; padding: 12px; }
+    .skip:focus { top: 8px; }
+    .site-nav { min-height: 44px; position: relative; z-index: 2; }
+    .nav-inner { max-width: 1024px; min-height: 44px; margin: auto; padding-inline: 22px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .brand { color: var(--ink); font: 700 15px/1 Arial, sans-serif; letter-spacing: -.4px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; white-space: nowrap; }
+    .orbit-mark { width: 20px; height: 20px; border: 1.5px solid currentColor; border-radius: 50%; transform: rotate(-30deg); position: relative; }
+    .orbit-mark::after { content: ''; position: absolute; inset: 5px -5px; border: 1.5px solid currentColor; border-radius: 50%; }
+    .desktop-links { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 16px; }
+    .desktop-links a { color: var(--ink); font-size: 12px; padding-block: 12px; }
+    .menu-button { display: none; width: 44px; height: 44px; border: 0; color: var(--ink); background: transparent; }
+    .menu-button svg { width: 22px; height: 22px; }
+    .mobile-links { background: var(--page); padding: 10px 22px 22px; box-shadow: 0 8px 15px #00000008; }
+    .mobile-links a { display: block; padding: 12px 0; color: var(--ink); }
+    .hero { display: grid; grid-template-columns: minmax(0, 730px) minmax(210px, 1fr); gap: 80px; align-items: start; padding-top: 76px; }
+    h1 { margin: 0; font-size: 70px; line-height: 1.23; letter-spacing: -2.5px; }
+    h1 .lead { display: block; }
+    h1 .tagline { display: block; max-width: 700px; margin-top: 9px; color: var(--muted); font-size: 46px; line-height: 1.3; letter-spacing: -1.4px; }
+    .hero-help { text-align: right; padding-top: 7px; }
+    .hero-help p { font-size: 23px; font-weight: 700; line-height: 1.5; margin: 0 0 12px; }
+    .hero-help a { display: inline-block; min-height: 44px; padding-top: 5px; }
+    .categories { margin-top: 72px; }
+    .rail { display: flex; gap: 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none; padding: 4px var(--gutter) 12px; scroll-padding-inline: var(--gutter); }
+    .rail::-webkit-scrollbar { display: none; }
+    .category-rail { gap: 24px; }
+    .category-link { flex: 0 0 140px; color: var(--ink); text-align: center; scroll-snap-align: start; font-weight: 700; padding: 4px; }
+    .category-link svg { display: block; width: 132px; height: 92px; margin: 0 auto 8px; }
+    .category-link span { display: block; padding-block: 4px; }
+    .rail-controls { display: flex; gap: 10px; justify-content: flex-end; margin-top: 9px; min-height: 48px; }
+    .rail-controls button { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; background: #e5e5e9; color: #515156; }
+    .rail-controls button:disabled { opacity: .35; cursor: default; }
+    .rail-controls svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+    .products { margin-top: 34px; }
+    h2 { font-size: 29px; line-height: 1.4; letter-spacing: -.7px; margin: 0; }
+    h2 span { color: var(--muted); }
+    .product-rail { margin-top: 24px; align-items: flex-start; padding-bottom: 16px; }
+    .product-card { flex: 0 0 400px; min-width: 0; min-height: 540px; padding: 28px; background: #fff; border-radius: 20px; box-shadow: 0 3px 12px #00000008; scroll-snap-align: start; scroll-margin-block: 20px; }
+    .eyebrow { color: #a5460a; font-size: 12px; margin: 0 0 9px; }
+    .product-card h3 { margin: 0 0 6px; font: 700 28px/1.35 Tahoma, Arial, sans-serif; letter-spacing: -.7px; }
+    .price { margin: 0; font-size: 14px; }
+    .product-card figure { margin: 20px -12px 0; }
+    .product-card figure svg { width: 100%; height: 285px; display: block; }
+    figcaption { color: var(--muted); text-align: center; font-size: 12px; margin-top: 4px; }
+    details { margin-top: 16px; font-size: 14px; }
+    summary { color: var(--blue); cursor: pointer; min-height: 44px; padding-block: 10px; line-height: 1.5; }
+    details p { margin: 8px 0 0; }
+    .catalog { margin-block: 68px 70px; }
+    .notice { margin: 0 0 36px; color: #65656b; line-height: 1.8; }
+    .category-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 40px; row-gap: 32px; }
+    .category-section { scroll-margin-top: 30px; min-width: 0; border-top: 1px solid #dcdce0; padding-top: 20px; }
+    .category-section:target { border-top-color: var(--blue); }
+    .category-section h3 { margin: 0 0 8px; font-size: 19px; }
+    .category-section p { margin: 0; color: #65656b; }
+    .category-section a { display: inline-block; padding-block: 8px; }
+    @media (min-width: 768px) { .mobile-links { display: none !important; } }
+    @media (max-width: 1000px) and (min-width: 768px) { .hero { gap: 35px; grid-template-columns: minmax(0, 2.2fr) minmax(200px, 1fr); } h1 { font-size: 64px; } h1 .tagline { font-size: 40px; } .hero-help p { font-size: 20px; } .desktop-links { gap: 10px; } }
+    @media (max-width: 767px) {
+      .nav-inner { gap: 12px; }
+      .desktop-links { display: none; }
+      .menu-button { display: grid; place-items: center; }
+      .hero { display: block; padding-top: 58px; }
+      h1 { font-size: 44px; line-height: 1.28; letter-spacing: -1.3px; }
+      h1 .tagline { margin-top: 10px; font-size: 32px; line-height: 1.32; letter-spacing: -.7px; }
+      .hero-help { text-align: left; padding-top: 25px; }
+      .hero-help p { font-size: 18px; margin-bottom: 10px; }
+      .categories { margin-top: 66px; }
+      .category-rail { gap: 8px; }
+      .category-link { flex-basis: 104px; font-size: 14px; }
+      .category-link svg { width: 96px; height: 76px; margin-bottom: 7px; }
+      .products { margin-top: 30px; }
+      h2 { font-size: 25px; line-height: 1.45; letter-spacing: -.5px; }
+      .product-rail { margin-top: 24px; }
+      .product-card { flex-basis: min(310px, calc(100vw - 44px)); padding: 28px; min-height: 515px; }
+      .product-card h3 { font-size: 23px; }
+      .product-card figure { margin-top: 22px; }
+      .product-card figure svg { height: 260px; }
+      .category-list { grid-template-columns: 1fr; row-gap: 24px; }
+      .catalog { margin-top: 46px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    :root { --motion-fast:160ms; --motion-base:240ms; --motion-enter:420ms; --motion-ease:cubic-bezier(.2,.8,.2,1); }
+    .nav-actions { display:flex; align-items:center; gap:8px; }
+    .cart-trigger { min-height:44px; border:0; background:transparent; color:var(--ink); display:inline-flex; align-items:center; gap:7px; padding:8px; white-space:nowrap; }
+    .cart-badge { display:inline-grid; place-items:center; min-width:23px; padding:1px 5px; background:var(--blue); color:white; border-radius:99px; font:12px/1.7 Arial,sans-serif; }
+    .product-card { transition:transform var(--motion-base) var(--motion-ease),box-shadow var(--motion-base); }
+    .product-card figure svg { transition:transform var(--motion-base) var(--motion-ease); }
+    .add-button,.primary-button { min-height:44px; padding:10px 18px; border:0; border-radius:99px; background:var(--blue); color:white; font:inherit; }
+    .add-button { margin-top:18px; width:100%; }
+    button:disabled { cursor:default; opacity:.5; }
+    .cart-dialog { position:fixed; inset:0 0 0 auto; margin:0; width:min(520px,100%); max-width:100%; height:100dvh; max-height:100%; padding:28px; border:0; background:white; color:var(--ink); overflow:auto; }
+    .cart-dialog::backdrop { background:#1117; }
+    .cart-header { display:flex; align-items:center; justify-content:space-between; gap:16px; border-bottom:1px solid #dedee3; padding-bottom:18px; }
+    .cart-header h2 { font-size:25px; }.close-button,.quantity-button { width:44px; height:44px; border:1px solid #d4d4da; border-radius:50%; background:white; color:var(--ink); font-size:20px; flex:none; }
+    .cart-line { padding:20px 0; border-bottom:1px solid #dedee3; }.cart-line h3 { margin:0 0 6px; font-size:18px; }.cart-line p { margin:0 0 12px; }
+    .quantity { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }.quantity output { min-width:20px; text-align:center; }
+    .remove-button,.clear-button { min-height:44px; padding:8px; border:0; color:#0056ac; background:transparent; font:inherit; text-decoration:underline; text-underline-offset:3px; }
+    .cart-total { display:flex; justify-content:space-between; gap:20px; font-size:21px; margin:25px 0 14px; font-weight:700; }.cart-actions { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .cart-note,.storage-message { color:#65656b; font-size:13px; line-height:1.8; }.storage-message:empty { display:none; }.empty-cart { padding:45px 0; color:#65656b; font-size:17px; }
+    .cart-status { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:4; max-width:calc(100% - 32px); width:max-content; padding:12px 20px; background:#202633; color:white; border-radius:14px; box-shadow:0 4px 24px #0002; pointer-events:none; }.cart-status:empty { opacity:0; padding:0; }
+    body.cart-open { overflow:hidden; }.categories,.products { position:relative; }
+    @media(hover:hover) and (prefers-reduced-motion:no-preference) { .product-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px #00000010; }.product-card:hover figure svg { transform:scale(1.025); } }
+    @media(prefers-reduced-motion:no-preference) {
+      .hero h1,.hero-help,.categories,.product-card { animation:arrive var(--motion-enter) var(--motion-ease) backwards; }.hero-help { animation-delay:60ms; }.categories { animation-delay:90ms; }.product-card:nth-child(2) { animation-delay:45ms; }.product-card:nth-child(3) { animation-delay:90ms; }
+      .cart-dialog[open] { animation:panel-in var(--motion-base) var(--motion-ease); }.cart-badge.confirm { animation:confirm var(--motion-fast) ease-out; }
+    }
+    @keyframes arrive { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes panel-in { from { opacity:0; transform:translateX(24px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes confirm { 50% { transform:scale(1.22); } }
+    @media(max-width:767px) {
+      .nav-inner { gap:8px; }.nav-actions { margin-left:auto; }.cart-trigger { font-size:12px; }.hero { padding-top:40px; }.categories { margin-top:46px; }.products { margin-top:48px; }
+      .rail-controls { position:absolute; right:12px; top:30px; margin:0; padding:0; width:auto; background:#f5f5f7dd; border-radius:99px; }.rail-controls button { width:44px; height:44px; }.products>.rail-controls { top:126px; }
+      .cart-dialog { padding:20px; }.cart-header h2 { font-size:23px; }
+    }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8e0ed"/><stop offset=".5" stop-color="#5688be"/><stop offset="1" stop-color="#313d7c"/></linearGradient>
+      <linearGradient id="metal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#e3e4e9"/><stop offset=".5" stop-color="#b0b6c3"/><stop offset="1" stop-color="#e3e5eb"/></linearGradient>
+      <linearGradient id="lavender" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#d2cde1"/><stop offset="1" stop-color="#9d9ab7"/></linearGradient>
+      <linearGradient id="ivory" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dce1e6"/></linearGradient>
+      <symbol id="phone" viewBox="0 0 400 320">
+        <ellipse cx="202" cy="299" rx="118" ry="10" fill="#1d1d1f" opacity=".07"/>
+        <g transform="rotate(-10 140 162)"><rect x="79" y="25" width="130" height="267" rx="26" fill="url(#lavender)" stroke="#9996ae" stroke-width="2"/><rect x="91" y="39" width="61" height="65" rx="17" fill="#bbb5cd"/><g fill="#363a47" stroke="#d6d1e1" stroke-width="3"><circle cx="108" cy="56" r="11"/><circle cx="136" cy="60" r="11"/><circle cx="112" cy="86" r="11"/></g><circle cx="136" cy="86" r="5" fill="#eee7d9"/></g>
+        <g transform="rotate(8 246 170)"><rect x="177" y="26" width="137" height="275" rx="27" fill="#777c89"/><rect x="181" y="30" width="129" height="267" rx="24" fill="#222632"/><rect x="186" y="35" width="119" height="257" rx="20" fill="url(#screen)"/><path d="M186 209C226 131 255 122 305 153V270Q305 292 284 292H207Q186 292 186 270Z" fill="#b5cfe7" opacity=".75"/><path d="M186 244C228 181 276 219 305 181V270Q305 292 284 292H207Q186 292 186 270Z" fill="#7c9bc1"/><rect x="225" y="42" width="42" height="10" rx="5" fill="#222632"/></g>
+      </symbol>
+      <symbol id="tablet" viewBox="0 0 400 320">
+        <ellipse cx="202" cy="296" rx="150" ry="11" fill="#1d1d1f" opacity=".07"/>
+        <g transform="rotate(-8 190 160)"><rect x="54" y="28" width="228" height="266" rx="20" fill="url(#metal)" stroke="#a3aab8" stroke-width="2"/><circle cx="70" cy="45" r="6" fill="#343947"/></g>
+        <g transform="rotate(8 236 169)"><rect x="123" y="39" width="228" height="264" rx="19" fill="#323a49"/><rect x="132" y="48" width="210" height="246" rx="11" fill="url(#screen)"/><path d="M132 195C201 244 204 92 342 106V199C270 156 240 307 132 256Z" fill="#a7d6e4" opacity=".9"/><path d="M132 253C220 306 258 168 342 204V283Q342 294 331 294H143Q132 294 132 283Z" fill="#425a94"/><circle cx="237" cy="44" r="2" fill="#9098a9"/></g>
+      </symbol>
+      <symbol id="laptop" viewBox="0 0 400 320">
+        <ellipse cx="200" cy="276" rx="166" ry="10" fill="#1d1d1f" opacity=".07"/>
+        <rect x="56" y="48" width="288" height="204" rx="13" fill="#aab1be"/><rect x="60" y="52" width="280" height="196" rx="10" fill="#303743"/><rect x="68" y="60" width="264" height="177" rx="4" fill="url(#screen)"/><path d="M68 176C130 92 214 222 332 81V168C220 281 155 145 68 237Z" fill="#9fcfdc"/><path d="M68 215C155 131 220 260 332 149V237H68Z" fill="#5f7ca9"/><circle cx="200" cy="56" r="2" fill="#939aa7"/><path d="M56 249H344L382 273Q382 280 369 281H31Q18 280 18 273Z" fill="url(#metal)" stroke="#a9b0be"/><path d="M155 249H245L252 261H148Z" fill="#b0b7c3"/><path d="M18 273H382" stroke="#f0f1f5" stroke-width="2"/>
+      </symbol>
+      <symbol id="watch" viewBox="0 0 400 320">
+        <rect x="156" y="8" width="88" height="305" rx="35" fill="#a8b2ad"/><rect x="145" y="78" width="110" height="164" rx="37" fill="#c4cbc6" stroke="#8e9a93" stroke-width="3"/><rect x="153" y="86" width="94" height="148" rx="29" fill="#202c2c"/><circle cx="200" cy="160" r="36" fill="none" stroke="#a9c7ad" stroke-width="5"/><path d="M200 132V160L219 174" fill="none" stroke="#e1ece3" stroke-width="5" stroke-linecap="round"/><rect x="254" y="119" width="7" height="24" rx="3" fill="#8e9a93"/>
+      </symbol>
+      <symbol id="buds" viewBox="0 0 400 320">
+        <ellipse cx="200" cy="288" rx="119" ry="12" fill="#1d1d1f" opacity=".07"/>
+        <g transform="rotate(-18 135 89)"><ellipse cx="130" cy="70" rx="29" ry="36" fill="url(#ivory)" stroke="#d6dce2"/><rect x="132" y="73" width="18" height="80" rx="9" fill="url(#ivory)" stroke="#d6dce2"/><ellipse cx="117" cy="67" rx="7" ry="12" fill="#707b85"/></g>
+        <g transform="rotate(18 266 89)"><ellipse cx="270" cy="70" rx="29" ry="36" fill="url(#ivory)" stroke="#d6dce2"/><rect x="250" y="73" width="18" height="80" rx="9" fill="url(#ivory)" stroke="#d6dce2"/><ellipse cx="283" cy="67" rx="7" ry="12" fill="#707b85"/></g>
+        <rect x="85" y="167" width="230" height="116" rx="45" fill="url(#ivory)" stroke="#cfd6de" stroke-width="2"/><path d="M87 198H313" stroke="#cfd6de" stroke-width="2"/><circle cx="200" cy="218" r="3" fill="#8b9a91"/>
+      </symbol>
+      <symbol id="accessories" viewBox="0 0 400 320">
+        <path d="M144 179C61 218 78 289 161 288H261C324 288 338 217 289 199" fill="none" stroke="#d0d6de" stroke-width="14"/>
+        <rect x="102" y="57" width="128" height="163" rx="27" fill="url(#ivory)" stroke="#c7cfd9" stroke-width="2"/><path d="M133 57V32M198 57V32" stroke="#a6adba" stroke-width="10"/><rect x="146" y="126" width="42" height="12" rx="5" fill="#56616b"/><rect x="266" y="160" width="37" height="59" rx="10" fill="url(#ivory)" stroke="#bfc8d3"/><rect x="275" y="146" width="19" height="18" rx="3" fill="#9da7b4"/>
+      </symbol>
+    </defs>
+  </svg>
+  <header class="site-nav">
+    <nav class="nav-inner" aria-label="เมนูหลัก">
+      <a class="brand" href="#main"><span class="orbit-mark" aria-hidden="true"></span>Orbit Store</a>
+      <div class="desktop-links"><a href="#category-laptop">แล็ปท็อป</a><a href="#category-phone">โทรศัพท์</a><a href="#category-tablet">แท็บเล็ต</a><a href="#category-watch">นาฬิกา</a><a href="#category-audio">หูฟัง</a><a href="#category-accessories">อุปกรณ์เสริม</a></div>
+      <div class="nav-actions"><button class="cart-trigger" id="open-cart" type="button" aria-label="เปิดตะกร้า" aria-haspopup="dialog" aria-controls="cart-dialog" disabled>ตะกร้า <span class="cart-badge" id="cart-count">0</span></button><button class="menu-button" type="button" aria-label="เปิดเมนูหมวดสินค้า" aria-expanded="false" aria-controls="mobile-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8H20M4 16H20" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
+    </nav>
+    <nav class="mobile-links" id="mobile-menu" aria-label="หมวดสินค้าบนมือถือ" hidden><a href="#category-laptop">แล็ปท็อป</a><a href="#category-phone">โทรศัพท์</a><a href="#category-tablet">แท็บเล็ต</a><a href="#category-watch">นาฬิกา</a><a href="#category-audio">หูฟัง</a><a href="#category-accessories">อุปกรณ์เสริม</a></nav>
+  </header>
+  <main id="main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <h1 id="hero-title"><span class="lead">ร้านของเรา.</span> <span class="tagline">ของดีที่เลือกให้ชีวิตคุณง่ายขึ้น</span></h1>
+      <div class="hero-help"><p>เลือกหมวดที่เหมาะกับคุณ</p><a href="#categories">ดูหมวดสินค้า ↓</a></div>
+    </section>
+    <section class="categories" id="categories" aria-label="เลือกหมวดสินค้า">
+      <div class="rail category-rail" id="category-rail" tabindex="0" role="group" aria-label="แถวหมวดสินค้า เลื่อนซ้ายขวาได้">
+        <a class="category-link" href="#category-laptop"><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#laptop"/></svg><span>แล็ปท็อป</span></a>
+        <a class="category-link" href="#category-phone"><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#phone"/></svg><span>โทรศัพท์</span></a>
+        <a class="category-link" href="#category-tablet"><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#tablet"/></svg><span>แท็บเล็ต</span></a>
+        <a class="category-link" href="#category-watch"><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#watch"/></svg><span>นาฬิกา</span></a>
+        <a class="category-link" href="#category-audio"><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#buds"/></svg><span>หูฟัง</span></a>
+        <a class="category-link" href="#category-accessories"><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#accessories"/></svg><span>อุปกรณ์เสริม</span></a>
+      </div>
+      <div class="rail-controls container" data-rail="category-rail" hidden>
+        <button type="button" data-direction="-1" aria-label="เลื่อนหมวดสินค้าไปทางซ้าย" aria-controls="category-rail"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+        <button type="button" data-direction="1" aria-label="เลื่อนหมวดสินค้าไปทางขวา" aria-controls="category-rail"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+      </div>
+    </section>
+    <section class="products" aria-labelledby="products-title">
+      <div class="container"><h2 id="products-title">สินค้าล่าสุดของเรา. <span>เลือกสิ่งที่ใช่สำหรับคุณ</span></h2></div>
+      <div class="rail product-rail" id="product-rail" tabindex="0" role="group" aria-label="แถวสินค้าล่าสุด เลื่อนซ้ายขวาได้">
+        <article class="product-card" id="product-phone" data-product="phone" data-price="29900" aria-labelledby="phone-title">
+          <p class="eyebrow">สินค้าตัวอย่าง</p><h3 id="phone-title">Orbit Phone Pro</h3><p class="price">฿29,900</p>
+          <figure><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#phone"/></svg><figcaption>ภาพประกอบตัวอย่าง</figcaption></figure>
+          <details><summary>ดูรายละเอียด Orbit Phone Pro</summary><p>Orbit Phone Pro — ฿29,900<br>หมวด: โทรศัพท์</p><p>ข้อมูลตัวอย่างสำหรับหน้าร้านจำลอง ยังไม่มีสเปกสินค้า</p></details>
+          <button class="add-button" type="button" data-add="phone" disabled>เพิ่มลงตะกร้า</button>
+        </article>
+        <article class="product-card" id="product-tablet" data-product="tablet" data-price="19900" aria-labelledby="tablet-title">
+          <p class="eyebrow">สินค้าตัวอย่าง</p><h3 id="tablet-title">Orbit Pad</h3><p class="price">฿19,900</p>
+          <figure><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#tablet"/></svg><figcaption>ภาพประกอบตัวอย่าง</figcaption></figure>
+          <details><summary>ดูรายละเอียด Orbit Pad</summary><p>Orbit Pad — ฿19,900<br>หมวด: แท็บเล็ต</p><p>ข้อมูลตัวอย่างสำหรับหน้าร้านจำลอง ยังไม่มีสเปกสินค้า</p></details>
+          <button class="add-button" type="button" data-add="tablet" disabled>เพิ่มลงตะกร้า</button>
+        </article>
+        <article class="product-card" id="product-laptop" data-product="laptop" data-price="34900" aria-labelledby="laptop-title">
+          <p class="eyebrow">สินค้าตัวอย่าง</p><h3 id="laptop-title">Orbit Air</h3><p class="price">฿34,900</p>
+          <figure><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#laptop"/></svg><figcaption>ภาพประกอบตัวอย่าง</figcaption></figure>
+          <details><summary>ดูรายละเอียด Orbit Air</summary><p>Orbit Air — ฿34,900<br>หมวด: แล็ปท็อป</p><p>ข้อมูลตัวอย่างสำหรับหน้าร้านจำลอง ยังไม่มีสเปกสินค้า</p></details>
+          <button class="add-button" type="button" data-add="laptop" disabled>เพิ่มลงตะกร้า</button>
+        </article>
+        <article class="product-card" id="product-audio" data-product="audio" data-price="3900" aria-labelledby="audio-title">
+          <p class="eyebrow">สินค้าตัวอย่าง</p><h3 id="audio-title">Orbit Buds</h3><p class="price">฿3,900</p>
+          <figure><svg aria-hidden="true" viewBox="0 0 400 320"><use href="#buds"/></svg><figcaption>ภาพประกอบตัวอย่าง</figcaption></figure>
+          <details><summary>ดูรายละเอียด Orbit Buds</summary><p>Orbit Buds — ฿3,900<br>หมวด: หูฟัง</p><p>ข้อมูลตัวอย่างสำหรับหน้าร้านจำลอง ยังไม่มีสเปกสินค้า</p></details>
+          <button class="add-button" type="button" data-add="audio" disabled>เพิ่มลงตะกร้า</button>
+        </article>
+      </div>
+      <div class="rail-controls container" data-rail="product-rail" hidden>
+        <button type="button" data-direction="-1" aria-label="เลื่อนสินค้าล่าสุดไปทางซ้าย" aria-controls="product-rail"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+        <button type="button" data-direction="1" aria-label="เลื่อนสินค้าล่าสุดไปทางขวา" aria-controls="product-rail"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+      </div>
+    </section>
+    <section class="catalog container" aria-label="รายการตามหมวดสินค้า">
+      <p class="notice">ร้านจำลอง — ชื่อสินค้า ราคา และภาพเป็นตัวอย่าง ไม่มีการซื้อขายจริง</p>
+      <div class="category-list">
+        <section class="category-section" id="category-laptop"><h3>แล็ปท็อป</h3><a href="#product-laptop">Orbit Air — ฿34,900</a></section>
+        <section class="category-section" id="category-phone"><h3>โทรศัพท์</h3><a href="#product-phone">Orbit Phone Pro — ฿29,900</a></section>
+        <section class="category-section" id="category-tablet"><h3>แท็บเล็ต</h3><a href="#product-tablet">Orbit Pad — ฿19,900</a></section>
+        <section class="category-section" id="category-watch"><h3>นาฬิกา</h3><p>ยังไม่มีสินค้าตัวอย่างในหมวดนี้</p></section>
+        <section class="category-section" id="category-audio"><h3>หูฟัง</h3><a href="#product-audio">Orbit Buds — ฿3,900</a></section>
+        <section class="category-section" id="category-accessories"><h3>อุปกรณ์เสริม</h3><p>ยังไม่มีสินค้าตัวอย่างในหมวดนี้</p></section>
+      </div>
+    </section>
+  </main>
+  <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-title" aria-describedby="cart-note">
+    <div class="cart-header"><h2 id="cart-title">ตะกร้าของคุณ</h2><button class="close-button" id="close-cart" type="button" aria-label="ปิดตะกร้า">×</button></div>
+    <p class="storage-message" id="storage-message" role="status"></p>
+    <div id="cart-items"></div>
+    <p class="cart-total"><span>รวมทั้งหมด</span><output id="cart-total">฿0</output></p>
+    <div class="cart-actions"><button class="clear-button" id="clear-cart" type="button" disabled>ล้างตะกร้า</button><button class="primary-button" id="download-summary" type="button" disabled>บันทึกสรุป (.txt)</button></div>
+    <p class="cart-note" id="cart-note">สรุปรายการเก็บในเครื่อง ยังไม่ใช่คำสั่งซื้อและไม่มีการชำระเงิน</p>
+    <p class="cart-note" id="cart-dialog-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </dialog>
+  <p class="cart-status" id="cart-status" role="status" aria-live="polite" aria-atomic="true"></p>
+  <noscript><p class="container">เปิด JavaScript เพื่อใช้เมนูและตะกร้า คุณยังอ่านสินค้าและรายละเอียดได้</p></noscript>
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const mobileMenu = document.querySelector('#mobile-menu');
+    function setMenu(open) {
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'ปิดเมนูหมวดสินค้า' : 'เปิดเมนูหมวดสินค้า');
+      mobileMenu.hidden = !open;
+    }
+    menuButton.addEventListener('click', () => setMenu(mobileMenu.hidden));
+    mobileMenu.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !mobileMenu.hidden) { setMenu(false); menuButton.focus(); }
+    });
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    document.querySelectorAll('[data-rail]').forEach(controls => {
+      const rail = document.getElementById(controls.dataset.rail);
+      const [previous, next] = controls.querySelectorAll('button');
+      function updateControls() {
+        const maxScroll = rail.scrollWidth - rail.clientWidth;
+        controls.hidden = maxScroll <= 1;
+        previous.disabled = rail.scrollLeft <= 1;
+        next.disabled = rail.scrollLeft >= maxScroll - 1;
+      }
+      controls.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (!button) return;
+        const step = rail.firstElementChild.getBoundingClientRect().width + parseFloat(getComputedStyle(rail).gap);
+        rail.scrollBy({ left: Number(button.dataset.direction) * step, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+      });
+      rail.addEventListener('scroll', updateControls, { passive: true });
+      new ResizeObserver(updateControls).observe(rail);
+      updateControls();
+    });
+  </script>
+  <script src="cart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
