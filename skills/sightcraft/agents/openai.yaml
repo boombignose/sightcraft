@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sightcraft"
+  short_description: "แกะภาพเว็บเป็นบรีฟดีไซน์และพรอมป์ต์พร้อมสร้าง"
+  default_prompt: "ใช้ $sightcraft วิเคราะห์ภาพเว็บที่แนบ แล้วทำ DESIGN.md และ BUILD-PROMPT.md สำหรับเว็บของฉัน แยกสิ่งที่เห็น ค่าประมาณ และข้อเสนอเพิ่มเติม"
