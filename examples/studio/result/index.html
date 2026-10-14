@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="บ้านฟอร์ม สตูดิโอสมมติ ตัวอย่างจากภาพอ้างอิงสู่เว็บภาษาไทยด้วย Sightcraft">
+  <title>บ้านฟอร์ม / BAAN FORM — Sightcraft example</title>
+  <style>
+    :root { --paper:#f1f0e7; --ink:#22291f; --muted:#505b49; --line:#b9c0b1; --lime:#d8f18b; --sand:#ddd1b9; --mist:#c7d8d4; }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.75 Arial,Thonburi,Tahoma,sans-serif; overflow-wrap:anywhere; }
+    a { color:inherit; text-decoration:none; } a:focus-visible,summary:focus-visible { outline:3px solid #455d17; outline-offset:5px; }
+    .skip { position:absolute; z-index:5; left:20px; top:-100px; padding:12px 20px; background:var(--lime); }.skip:focus { top:12px; }
+    .wrap { width:min(1296px,90%); margin-inline:auto; }
+    header { min-height:106px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px 24px; padding-block:20px; }
+    .brand { min-height:44px; display:inline-flex; align-items:center; font-size:22px; font-weight:800; letter-spacing:-1px; }.brand small { font-size:11px; margin-left:4px; }
+    nav { display:flex; align-items:center; flex-wrap:wrap; gap:12px 28px; font-size:14px; } nav a { min-height:44px; display:inline-flex; align-items:center; }
+    .contact-link { border:1px solid var(--ink); padding:0 20px; border-radius:99px; }
+    .hero { display:grid; grid-template-columns:minmax(0,1.28fr) minmax(0,1fr); gap:64px; align-items:center; padding:64px 0 56px; }
+    .eyebrow { display:flex; gap:10px; align-items:center; font-size:12px; color:var(--muted); letter-spacing:.3px; }
+    .dot { width:8px; height:8px; flex:none; background:#455d17; border-radius:50%; }
+    h1 { font-size:clamp(60px,6.8vw,98px); line-height:1.25; font-weight:500; letter-spacing:-.045em; margin:20px 0; }
+    h1 em { font-family:Georgia,Thonburi,serif; font-weight:400; }
+    .intro { color:var(--muted); max-width:390px; margin:20px 0; }
+    .button { display:inline-flex; gap:40px; justify-content:space-between; align-items:center; min-height:52px; padding:10px 26px; border-radius:99px; background:var(--ink); color:var(--paper); margin-top:10px; }
+    .poster { position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:36px; padding:25px; background:var(--sand); aspect-ratio:.92; }
+    .poster-top,.poster-bottom { display:flex; justify-content:space-between; gap:18px; font:11px/1.6 'Courier New',Thonburi,monospace; }
+    .poster-top span,.poster-bottom span { min-width:0; }
+    .poster-bottom { border-top:1px solid #858e76; padding-top:14px; }
+    .shapes { display:flex; align-items:center; justify-content:center; gap:12px; height:320px; }
+    .shape { width:29%; height:100%; background:var(--ink); }.shape:nth-child(2) { height:68%; background:#687653; border-radius:100% 100% 0 0; }.shape:nth-child(3) { clip-path:polygon(0 0,100% 0,100% 48%,0 100%); }
+    .seal { position:absolute; z-index:1; right:18px; top:62px; min-width:76px; min-height:76px; padding:14px; display:grid; place-content:center; border:1px solid var(--ink); border-radius:50%; background:var(--lime); font-size:11px; text-align:center; transform:rotate(10deg); }
+    .services { display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px 28px; padding:21px 0; border-block:1px solid var(--line); font-size:12px; color:var(--muted); }
+    .section-heading { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px 24px; padding:36px 0 22px; }
+    h2 { font-size:36px; line-height:1.4; font-weight:500; letter-spacing:-1px; margin:0; }.count { font:12px/1.5 'Courier New',monospace; color:var(--muted); }
+    .projects { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; }
+    .project-art { min-height:260px; padding:30px; display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px; }
+    .project-art.lime { background:var(--lime); }.project-art.mist { background:var(--mist); }.artword { font-size:76px; line-height:1.3; letter-spacing:-.05em; font-weight:500; }.project-art .note { font-size:12px; }
+    .caption { display:flex; justify-content:space-between; gap:16px; padding:12px 0 30px; }.caption h3 { font-size:17px; font-weight:500; margin:0; }.caption p { margin:3px 0 0; font-size:12px; color:var(--muted); }.tag { font:11px/1.7 'Courier New',monospace; }
+    .about { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:60px; border-top:1px solid var(--line); padding:38px 0; }.statement { font-size:24px; margin:0 0 24px; }
+    details { padding:13px 0; border-top:1px solid var(--line); } summary { min-height:44px; align-content:center; cursor:pointer; } details p { color:var(--muted); font-size:15px; margin:12px 0; }
+    footer { border-top:1px solid var(--line); padding:26px 0 36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px 36px; color:var(--muted); font-size:12px; } footer p { margin:0; max-width:440px; }
+    @media(max-width:760px) {
+      .wrap { width:calc(100% - 40px); } header { min-height:84px; }.brand { font-size:21px; } nav { font-size:13px; gap:8px 16px; }.contact-link { padding-inline:16px; }
+      .hero { grid-template-columns:minmax(0,1fr); gap:34px; padding:34px 0; } h1 { font-size:clamp(48px,12.5vw,76px); }.intro { max-width:none; }.poster { aspect-ratio:auto; gap:28px; }.shapes { height:250px; }
+      .projects,.about { grid-template-columns:minmax(0,1fr); }.projects { gap:0; }.project-art { min-height:240px; padding:26px; }.artword { font-size:64px; }.about { gap:22px; }.statement { font-size:22px; } h2 { font-size:30px; }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+  <div class="wrap">
+    <header><a href="#main" class="brand" aria-label="บ้านฟอร์ม หน้าแรก">BAAN / FORM<small>บ้านฟอร์ม</small></a><nav aria-label="เมนูหลัก"><a href="#work">ผลงาน</a><a href="#about">รู้จักเรา</a><a class="contact-link" href="#contact">คุยกัน ↗</a></nav></header>
+    <main id="main">
+      <section class="hero" aria-labelledby="headline">
+        <div><div class="eyebrow"><span class="dot" aria-hidden="true"></span>สตูดิโอเล็ก ๆ สำหรับไอเดียที่เป็นคุณ</div><h1 id="headline">งานที่ใช่<br><em>ในแบบคุณ.</em></h1><p class="intro">เราเปลี่ยนไอเดียของคุณให้เป็นแบรนด์และเว็บไซต์ ที่ชัดเจน ใช้ง่าย และมีบุคลิกของตัวเอง</p><a class="button" href="#work">ดูงานของเรา <span aria-hidden="true">↗</span></a></div>
+        <div class="poster" role="img" aria-label="โปสเตอร์บ้านฟอร์ม กระดาษสีทราย รูปทรงเรขาคณิตแนวตั้งสามชิ้นและตราสีมะนาว"><div class="poster-top" aria-hidden="true"><span>BF — FORM STUDY 01</span><span>ความคิดมีรูปทรง</span></div><div class="seal" aria-hidden="true">ออกแบบ<br>ให้เป็นคุณ</div><div class="shapes" aria-hidden="true"><i class="shape"></i><i class="shape"></i><i class="shape"></i></div><div class="poster-bottom" aria-hidden="true"><span>เริ่มจากสิ่งเรียบง่าย<br>ไปได้ไกลกว่าที่คิด</span><span>BAAN FORM<br>2026</span></div></div>
+      </section>
+      <div class="services" aria-label="สิ่งที่เราออกแบบ"><span>กลยุทธ์แบรนด์</span><span>อัตลักษณ์ที่เป็นคุณ</span><span>เว็บไซต์ที่ใช้งานได้</span><span>สตูดิโอเล็ก ไอเดียกว้าง ↗</span></div>
+      <section id="work" aria-labelledby="work-title"><div class="section-heading"><h2 id="work-title">งานที่อยากให้เห็น</h2><span class="count">01 — 02 / CONCEPTS</span></div><div class="projects">
+        <article><div class="project-art lime" role="img" aria-label="โปสเตอร์ตัวอักษรแบรนด์สมมติ พอดี บนพื้นมะนาว"><strong class="artword" aria-hidden="true">พอดี.</strong><span class="note" aria-hidden="true">กาแฟที่ดี<br>ในจังหวะของคุณ</span></div><div class="caption"><div><h3>พอดี — แบรนด์กาแฟในจังหวะของคุณ</h3><p>กลยุทธ์แบรนด์ · อัตลักษณ์</p></div><span class="tag">CONCEPT</span></div></article>
+        <article><div class="project-art mist" role="img" aria-label="โปสเตอร์ตัวอักษรแบรนด์สมมติ วันว่าง บนพื้นฟ้าเทา"><strong class="artword" aria-hidden="true">วันว่าง /</strong><span class="note" aria-hidden="true">ลดเสียงรอบตัว<br>เพิ่มพื้นที่ให้ชีวิต</span></div><div class="caption"><div><h3>วันว่าง — พื้นที่ให้ชีวิตได้หายใจ</h3><p>สิ่งพิมพ์ · ทิศทางเว็บไซต์</p></div><span class="tag">CONCEPT</span></div></article>
+      </div></section>
+      <section id="about" class="about" aria-labelledby="about-title"><h2 id="about-title">รู้จักบ้านฟอร์ม</h2><div><p class="statement">คิดเป็นระบบ ออกแบบให้รู้สึก<br>เราเชื่อว่างานที่ดีควรมีทั้งสองอย่าง</p><details><summary>บ้านฟอร์มออกแบบอะไรบ้าง?</summary><p>ตัวอย่างนี้เล่าถึงสตูดิโอออกแบบแบรนด์และเว็บไซต์ ผลงานทั้งสองชิ้นเป็น concept ที่สร้างขึ้นสำหรับชุด Sightcraft และไม่ใช่ลูกค้าจริง</p></details><details><summary>อยากเริ่มงานด้วยกัน ต้องทำอย่างไร?</summary><p>สำหรับเว็บจริงให้ใส่ช่องทางติดต่อของคุณในส่วนคุยกัน ตัวอย่างนี้ไม่มีบริการส่งข้อความเชื่อมต่อ จึงไม่มีการส่งข้อมูลออกจากเครื่อง</p></details></div></section>
+    </main>
+    <footer id="contact"><p>บ้านฟอร์ม / BAAN FORM<br>สตูดิโอสมมติสำหรับตัวอย่าง Sightcraft · MIT</p><p>คุยกัน — เมื่อใช้เป็นเว็บจริง ให้ใส่ช่องทางติดต่อของคุณที่นี่<br>ตัวอย่างนี้ยังไม่มีบริการส่งข้อความเชื่อมต่อ</p></footer>
+  </div>
+</body>
+</html>
