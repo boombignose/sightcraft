@@ -1,0 +1,24 @@
+{
+  "contract": "Offline Sightcraft comparison gallery at 1440x1000 and 390x844. Primary actions open the original/adapted pages or the Thai start guide. Adapted result additionally checked at 320px and with text increased to 200%. Original reference and adapted screenshots inspected visually.",
+  "targetViewports": ["1440x1000", "390x844"],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "Named links, landmarks and image alternatives inspected; keyboard Tab shows a solid focus outline; Space opens/closes the adapted page details and opens gallery mobile comparison; CTA hash reaches #work. Main foreground/background contrast ratios exceed 4.5:1. This is a basic check, not a screen reader or comprehensive WCAG audit."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Exact viewport widths recorded through CDP, scrollWidth <= innerWidth on gallery at 1440 and 390 and result at 1440, 390, 320. Result text doubled from initial computed sizes at 390 without horizontal overflow; reviewed top screenshot. Thai navigation wraps and all text remains available."
+  },
+  "contentStates": {
+    "loading": {"status":"not-applicable","reason":"Static local documents and images, with no asynchronous data request or application loading state."},
+    "empty": {"status":"not-applicable","reason":"The gallery ships with a fixed complete original example; no input form or empty collection."},
+    "error": {"status":"not-applicable","reason":"No application request, backend or upload. Missing local file failures are covered by the package checker, not a simulated UI state."},
+    "partial": {"status":"not-applicable","reason":"The gallery always shows complete local captures. Cropped-input uncertainty belongs to the instruction-only skill and is illustrated separately in CROPPED-CASE.md."},
+    "success": {"status":"pass","evidence":"Both original/adapted desktop pages and screenshots load, all four gallery comparison images have nonzero natural width, and native links/disclosure work."},
+    "permission": {"status":"not-applicable","reason":"No credentials, upload, permission prompt or external service in the static gallery."}
+  },
+  "renderedEvidence": [
+    {"viewport":"1440x1000","artifact":"evidence/gallery-desktop.png","observation":"Read and visually inspected desktop gallery: clear primary action, side-by-side original/adapted previews, output document links and Thai start guide."},
+    {"viewport":"390x844","artifact":"evidence/gallery-mobile.png","observation":"Read and visually inspected mobile gallery: hero and comparisons stack, links and long Thai copy fit without horizontal overflow."}
+  ]
+}

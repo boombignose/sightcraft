@@ -1,0 +1,20 @@
+{
+  "contract": "Original local Orbit storefront: browse categories, add sample products, adjust/remove/clear cart, reload on localhost and download a local text summary. Native dialog and progressive CSS animation; no order/payment service or personal data. Target 1440x1000 and 390x844, additional 320 and breakpoint checks.",
+  "targetViewports": ["1440x1000", "390x844"],
+  "accessibility": {"status":"pass","evidence":"Pointer and keyboard flows exercised: named native dialog contains Tab focus, Escape closes and restores trigger focus, quantity buttons have names, live updates are inside the dialog, disabled controls reflect empty/quantity limits. Small gray text retains the previously checked contrast fix. Basic browser check only; no real screen reader test."},
+  "responsive": {"status":"pass","evidence":"No document overflow in exact browser viewports 1440x1000, 390x844, 320x740, 767x900 and 768x900; text computed sizes doubled at 390 without page overflow. Mobile cart, rail controls and Thai labels visually inspected."},
+  "contentStates": {
+    "loading":{"status":"not-applicable","reason":"Fixed local catalog and synchronous local scripts; no asynchronous backend or remote data loading."},
+    "empty":{"status":"pass","evidence":"Clearing the cart shows empty guidance and disables clear/download controls; native modal stays operable."},
+    "error":{"status":"pass","evidence":"Corrupt saved JSON shows recovery message. Denied localStorage shows explicit persistence limitation while an in-session product/cart total still works."},
+    "partial":{"status":"not-applicable","reason":"Fixed four-product catalog is complete for this demo; two intentionally empty categories have explicit empty messages, no partially loaded data."},
+    "success":{"status":"pass","evidence":"Two phones plus buds total 63700; quantity changes, reload, real summary-file download, remove and clear all passed. Normal entrance and panel animation plus hover transform observed; reduced motion disables animation and transition."},
+    "permission":{"status":"not-applicable","reason":"No login, account, external integration or permission request. Storage denial is handled as a recoverable local error."}
+  },
+  "renderedEvidence": [
+    {"viewport":"1440x1000","artifact":"evidence/storefront/desktop.png","observation":"Rendered storefront retains original Orbit style and exposes cart in navigation."},
+    {"viewport":"390x844","artifact":"evidence/storefront/mobile.png","observation":"Rendered Thai mobile storefront shows horizontal category/product rails with less vertical gap."},
+    {"viewport":"1440x1000","artifact":"evidence/storefront/cart-desktop.png","observation":"Native cart panel shows sample line quantities, 63700 total and download action."},
+    {"viewport":"390x844","artifact":"evidence/storefront/cart-mobile.png","observation":"Mobile cart is readable, has named close control and local-summary note."}
+  ]
+}
